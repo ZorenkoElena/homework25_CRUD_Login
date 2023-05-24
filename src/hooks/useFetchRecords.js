@@ -1,0 +1,31 @@
+import { useEffect, useState, useContext } from 'react';
+import axios from 'axios';
+import { RecordsDataContext } from '../providers/recordsDataProviders.js';
+
+const useFetchRecords = (isManual = false) => {
+  const recordsCtx = useContext(RecordsDataContext);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(undefined);
+
+  useEffect(() => {
+    if (!isManual) {
+      fetchData();
+    }
+  }, []);
+
+  const fetchData = async () => {
+    setLoading(true);
+    try {
+      const data = await axios.get('records/');
+      recordsCtx.setRecords(data);
+      setLoading(false);
+    } catch (error) {
+      setError(error);
+      console.log(error);
+    }
+  };
+
+  return { data: recordsCtx.records, loading, error, fetchData };
+};
+
+export default useFetchRecords;
