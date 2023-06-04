@@ -1,5 +1,6 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
+import useFetchRecords from '../hooks/useFetchRecords.js';
 
 export const AuthContext = React.createContext({
   doLogin: () => {},
@@ -9,6 +10,7 @@ export const AuthContext = React.createContext({
 
 const AuthProvider = (props) => {
   const [token, setToken] = useState();
+  const { fetchData } = useFetchRecords(true);
 
   useEffect(() => {
     setToken(localStorage.getItem('token'));
@@ -20,7 +22,7 @@ const AuthProvider = (props) => {
   const doLogin = async (user) => {
     try {
       const resp = await axios.post('login', { user });
-      console.log('resp', resp);
+      console.log('respFromAuthprovider', resp);
       localStorage.setItem('token', resp.data.token);
       setToken(resp.data.token);
     } catch (error) {
@@ -30,6 +32,7 @@ const AuthProvider = (props) => {
 
   const doLogout = () => {
     localStorage.removeItem('token');
+    fetchData();
   };
 
   const getContextValue = () => {

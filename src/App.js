@@ -36,6 +36,7 @@ const PhoneBookRecords = () => {
   const { data, loading, error } = useFetchRecords();
 
   if (error) {
+    console.log('Ошибка из app.js', error);
     return <h1 style={{ color: 'red' }}>We have a problem</h1>;
   }
 

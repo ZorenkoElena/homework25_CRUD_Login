@@ -16,12 +16,13 @@ const useFetchRecords = (isManual = false) => {
   const fetchData = async () => {
     setLoading(true);
     try {
-      const data = await axios.get('records/');
-      recordsCtx.setRecords(data);
+      const resp = await axios.get('records/');
+      console.log('resp from useFetchRecords', resp);
+      recordsCtx.setRecords(resp);
       setLoading(false);
     } catch (error) {
-      setError(error);
-      console.log(error);
+      // setError(error);
+      console.log('Ошибка из UseFetch...', error);
     }
   };
 

@@ -14,6 +14,7 @@ const useDeleteRecords = () => {
       const data = await axios.delete(`records/${id}`);
       setData(data);
       fetchData();
+      console.log('data from useDeleteRecords', data);
       setLoading(false);
     } catch (error) {
       setError(error);

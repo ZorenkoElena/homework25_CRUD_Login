@@ -13,7 +13,7 @@ const useAddRecords = () => {
 
     try {
       const data = await axios.post('records/', newUser);
-
+      console.log('data from useAddRecords', data);
       setData(data);
       fetchData();
       setLoading(false);

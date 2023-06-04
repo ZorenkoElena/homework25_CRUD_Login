@@ -12,7 +12,7 @@ const usePutRecords = () => {
     setLoading(true);
     try {
       const data = await axios.put(`records/${id}`, user);
-
+      console.log('data from usePutRecords', data);
       setData(data);
       fetchData();
       setLoading(false);
